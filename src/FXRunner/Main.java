@@ -10,7 +10,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-
 // Intent: Pre-Run for the BlackJackSimulator Application. This will prompt the user to enter their name
 //      And then pass this information along to BlackJackRunner
 public class Main extends Application {
