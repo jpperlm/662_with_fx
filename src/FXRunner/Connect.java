@@ -9,12 +9,17 @@ import java.util.HashMap;
 // Used for Interaction with DB
 public class Connect {
 
+    private String dbname;
+
+    public Connect(String dbname) {
+        this.dbname = dbname;
+    }
     /**
      * Connects to a the database and returns the connection
      */
     private Connection connect() {
         Connection conn = null;
-        String url = "jdbc:sqlite:/Users/jasonperlman/IdeaProjects/BlackJackFX/blackjack.db";
+        String url = "jdbc:sqlite:/Users/jasonperlman/IdeaProjects/BlackJackFX/" + this.dbname + ".db";
         try {
             conn = DriverManager.getConnection(url);
         } catch (SQLException e) {
@@ -140,13 +145,4 @@ public class Connect {
         return players;
     }
 
-//    /**
-//     * @param args the command line arguments
-//     */
-//    public static void main(String[] args) {
-//        Connect app = new Connect();
-////        app.delete_table();
-//        app.create_table();
-//        app.insert_default_players();
-//    }
 }

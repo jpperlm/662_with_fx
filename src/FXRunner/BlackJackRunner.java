@@ -15,7 +15,7 @@ public class BlackJackRunner {
 
     private static void run_table(String[] args) {
 
-        Connect app = new Connect();
+        Connect app = new Connect("blackjack");
 //        app.delete_table();
         app.create_table();
         app.insert_default_players();
@@ -24,13 +24,13 @@ public class BlackJackRunner {
         app.create_player_if_not_exist(name, "User");
 
         ArrayList<Player> players = new ArrayList<>();
-//        app.select_all_players().stream().forEach(player -> {
-//            if (player.get("type").toString() == "Random") {
-//                players.add(new RandomPlayer(player.get("name").toString(), 100.0));
-//            } else {
-//                players.add(new UserPlayer(player.get("name").toString(), 100.0));
-//            }
-//        });
+        app.select_all_players().stream().forEach(player -> {
+            if (player.get("type").toString() == "Random") {
+                players.add(new RandomPlayer(player.get("name").toString(), 100.0));
+            } else {
+                players.add(new UserPlayer(player.get("name").toString(), 100.0));
+            }
+        });
 
         // Creates a new blackjacktable
         BlackJackTable table_1 = new BlackJackTable(1, 3, 3);
