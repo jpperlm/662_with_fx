@@ -15,12 +15,17 @@ class ConnectTest {
         Connect app = new Connect("testjack");
         app.delete_table();
         app.create_table();
-        app.insert_default_players();
         ArrayList<HashMap> ps = app.select_all_players();
+        assertEquals(0, ps.size());
+
+        app.insert_default_players();
+        ps = app.select_all_players();
         assertEquals(2, ps.size());
+
         app.create_player_if_not_exist("Bob", "User");
         ps = app.select_all_players();
         assertEquals(3, ps.size());
+
         assertEquals("Random P1", ps.get(0).get("name").toString());
     }
 

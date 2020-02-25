@@ -8,7 +8,6 @@ import java.util.HashMap;
 
 // Used for Interaction with DB
 public class Connect {
-
     private String dbname;
 
     public Connect(String dbname) {
@@ -74,13 +73,11 @@ public class Connect {
         }
     }
 
-
     // Creates two dummy RANDOM default players (if they do not already exist)
     public void insert_default_players() {
         create_player_if_not_exist("Random P1", "Random");
         create_player_if_not_exist("Random P2", "Random");
     }
-
 
     // Finds or creates a player based on the name and type
     public void create_player_if_not_exist(String name, String type) {
