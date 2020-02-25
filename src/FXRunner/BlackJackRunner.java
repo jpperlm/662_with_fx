@@ -6,6 +6,7 @@ import blackjack.RandomPlayer;
 import blackjack.UserPlayer;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class BlackJackRunner {
     public static void main(String[] args){
@@ -13,18 +14,23 @@ public class BlackJackRunner {
     }
 
     private static void run_table(String[] args) {
-        // Creates two different Random Player Objects
-        Player random_player_1 = new RandomPlayer("Random P1", 100.0);
-        Player random_player_2 = new RandomPlayer("Random P2", 100.0);
 
+        Connect app = new Connect();
+//        app.delete_table();
+        app.create_table();
+        app.insert_default_players();
         // Creates the User Player. Sets name to input or defaults to default value.
         String name = args.length > 0 ? args[0] : "User (you)";
-        Player user_player = new UserPlayer(name, 100.0);
+        app.create_player_if_not_exist(name, "User");
 
         ArrayList<Player> players = new ArrayList<>();
-        players.add(random_player_1);
-        players.add(random_player_2);
-        players.add(user_player);
+//        app.select_all_players().stream().forEach(player -> {
+//            if (player.get("type").toString() == "Random") {
+//                players.add(new RandomPlayer(player.get("name").toString(), 100.0));
+//            } else {
+//                players.add(new UserPlayer(player.get("name").toString(), 100.0));
+//            }
+//        });
 
         // Creates a new blackjacktable
         BlackJackTable table_1 = new BlackJackTable(1, 3, 3);

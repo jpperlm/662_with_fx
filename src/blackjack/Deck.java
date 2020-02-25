@@ -21,8 +21,8 @@ public class Deck {
     private void reset(){
         this.cards.clear();
         try {
-            Scanner scanner_suits = new Scanner(new File("/Users/jasonperlman/IdeaProjects/Perlman_BlackJack_Tutor/src/blackjack/suits.csv"));
-            Scanner scanner_cards = new Scanner(new File("/Users/jasonperlman/IdeaProjects/Perlman_BlackJack_Tutor/src/blackjack/cards.csv"));
+            Scanner scanner_suits = new Scanner(new File("/Users/jasonperlman/IdeaProjects/BlackJackFX/src/blackjack/suits.csv"));
+            Scanner scanner_cards = new Scanner(new File("/Users/jasonperlman/IdeaProjects/BlackJackFX/src/blackjack/cards.csv"));
             ArrayList<String[]> suits = new ArrayList<>();
             ArrayList<String[]> cards = new ArrayList<>();
             while (scanner_suits.hasNextLine()) {
