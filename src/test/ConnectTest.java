@@ -13,13 +13,11 @@ class ConnectTest {
     @Test
     public void testConnection() {
         Connect app = new Connect("testjack");
-        app.delete_table();
-        app.create_table();
-        ArrayList<HashMap> ps = app.select_all_players();
-        assertEquals(0, ps.size());
+        app.delete_player_types_table();
+        app.delete_players_table();
+        app.setupTables();
 
-        app.insert_default_players();
-        ps = app.select_all_players();
+        ArrayList<HashMap> ps = app.select_all_players();
         assertEquals(2, ps.size());
 
         app.create_player_if_not_exist("Bob", "User");
@@ -27,7 +25,27 @@ class ConnectTest {
         assertEquals(3, ps.size());
 
         assertEquals("Random P1", ps.get(0).get("name").toString());
+        app.delete_player_types_table();
+        app.delete_players_table();
     }
+
+    @Test
+    public void showTables() {
+        Connect app = new Connect("testjack");
+        app.delete_player_types_table();
+        app.delete_players_table();
+        app.setupTables();
+
+        app.create_player_if_not_exist("Test_1", "User");
+        app.create_player_if_not_exist("Test_2", "User");
+        ArrayList<HashMap> ps = app.select_all_players();
+        ps.stream().forEach(a -> {
+            System.out.println("Got Player from table");
+            System.out.println("Name: " + a.get("name") + " Type: " + a.get("type"));
+        });
+    }
+
+
 
 
 
