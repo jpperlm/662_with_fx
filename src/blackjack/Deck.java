@@ -1,9 +1,8 @@
 package blackjack;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.FutureTask;
 
 // Represents a Deck (of cards)
 // A deck typically has 52 cards but this is customizable based
@@ -20,19 +19,18 @@ public class Deck {
     // Clears the cards from the Deck and re-initializes them from the specified files
     private void reset(){
         this.cards.clear();
+
         try {
-            Scanner scanner_suits = new Scanner(new File("/Users/jasonperlman/IdeaProjects/BlackJackFX/src/blackjack/suits.csv"));
-            Scanner scanner_cards = new Scanner(new File("/Users/jasonperlman/IdeaProjects/BlackJackFX/src/blackjack/cards.csv"));
-            ArrayList<String[]> suits = new ArrayList<>();
-            ArrayList<String[]> cards = new ArrayList<>();
-            while (scanner_suits.hasNextLine()) {
-                suits.add(scanner_suits.nextLine().split(","));
-            }
-            scanner_suits.close();
-            while (scanner_cards.hasNextLine()) {
-                cards.add(scanner_cards.nextLine().split(","));
-            }
-            scanner_cards.close();
+            String suits_path = "/Users/jasonperlman/IdeaProjects/BlackJackFX/src/blackjack/suits.csv";
+            String numbers_path = "/Users/jasonperlman/IdeaProjects/BlackJackFX/src/blackjack/cards.csv";
+            FutureTask<ArrayList<String[]>> future_suits = new FutureTask<ArrayList<String[]>>(new FileLoader(suits_path));
+            FutureTask<ArrayList<String[]>> future_numbs = new FutureTask<ArrayList<String[]>>(new FileLoader(numbers_path));
+            Thread t1 = new Thread(future_suits);
+            Thread t2 = new Thread(future_numbs);
+            t1.start();
+            t2.start();
+            ArrayList<String[]> suits = future_suits.get();
+            ArrayList<String[]> cards = future_numbs.get();
             for (String[] suit_items: suits){
                 String suit_short = suit_items[1];
                 String suit_long = suit_items[2];
@@ -44,9 +42,11 @@ public class Deck {
                     this.cards.add(new Card(Integer.parseInt(items[0]), items[1], items[2], suit_short, suit_long, act));
                 }
             }
-        } catch (FileNotFoundException e) {
+        } catch (ExecutionException | InterruptedException e){
             e.printStackTrace();
         }
+
+
     }
     // Getters
     public ArrayList<Card> cards() {
