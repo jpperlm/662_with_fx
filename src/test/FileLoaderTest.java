@@ -9,6 +9,7 @@ import java.util.concurrent.FutureTask;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+// Tests the FileLoader Class
 class FileLoaderTest {
     @Test
     public void test() {
